@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            fidget
+        </title>
+        <link rel="stylesheet" href="style.css">
+        <script language="JavaScript">
+
+            function randomHSL(hslseed, alpha){
+                return "hsla(" + hslseed + "," +
+                                "70%,"+
+                                "80%," + alpha + ")"
+            }
+
+            function pageclick()
+            {
+                var element = document.getElementById("main");
+                var header = document.getElementById("top");
+                var footer = document.getElementById("bot");
+                var hslseed = ~~(360 * Math.random());
+                element.style.backgroundColor = randomHSL(hslseed, "0.8");
+                header.style.backgroundColor = randomHSL(hslseed, "0.5");
+                footer.style.backgroundColor = randomHSL(hslseed, "0.5");
+                console.log("div clicked");
+            }
+        </script>
+    </head>
+    <body>
+        <div id="top" class="header">&nbsp;</div>
+        <div id="main" class="mainbody" onClick="pageclick()">
+            <p>click at all the pretty colors</p>
+            <p>and dream of what might have been</p>
+        </div>
+        <div id="bot" class="footer">&nbsp;</div>
+    </body>
+</html>
