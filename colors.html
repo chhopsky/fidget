@@ -17,6 +17,33 @@
         <meta property="og:image" content="https://downloads.chhopsky.tv/fidget/colors-preview.png" />
         <link rel="stylesheet" href="style.css">
         <script language="JavaScript">
+            var cssprefix = getCssValuePrefix()
+
+            function getCssValuePrefix()
+            {
+                var rtrnVal = '';//default to standard syntax
+                var prefixes = ['-o-', '-ms-', '-moz-', '-webkit-'];
+
+                // Create a temporary DOM object for testing
+                var dom = document.createElement('div');
+
+                for (var i = 0; i < prefixes.length; i++)
+                {
+                    // Attempt to set the style
+                    dom.style.background = prefixes[i] + 'linear-gradient(#000000, #ffffff)';
+
+                    // Detect if the style was successfully set
+                    if (dom.style.background)
+                    {
+                        rtrnVal = prefixes[i];
+                    }
+                }
+
+                dom = null;
+                delete dom;
+
+                return rtrnVal;
+            }
 
             function randomHSL(hslseed, alpha){
                 return "hsla(" + hslseed + "," +
@@ -29,20 +56,27 @@
                 var element = document.getElementById("main");
                 var header = document.getElementById("top");
                 var footer = document.getElementById("bot");
+                var gradient = document.getElementById("gradient");
                 var hslseed = ~~(360 * Math.random());
-                element.style.backgroundColor = randomHSL(hslseed, "0.8");
                 header.style.backgroundColor = randomHSL(hslseed, "0.5");
+                if (gradient.checked) {
+                    element.style.backgroundColor = "#FFFFFF"
+                    element.style.backgroundImage = cssprefix + "linear-gradient(" + randomHSL(hslseed, "0.8") + ", " + randomHSL(hslseed, "0.4") + ")";
+                }
+                else {
+                    element.style.backgroundImage = "none"
+                    element.style.backgroundColor = randomHSL(hslseed, "0.8");
+                }
                 footer.style.backgroundColor = randomHSL(hslseed, "0.5");
-                console.log("div clicked");
             }
         </script>
     </head>
     <body>
-        <div id="top" class="header">&nbsp;</div>
+        <div id="top" class="header"><input id="gradient" type="checkbox" checked>gradient</div>
         <div id="main" class="mainbody" onClick="pageclick()">
             <p>click at all the pretty colors</p>
             <p>and dream of what might have been</p>
         </div>
-        <div id="bot" class="footer">&nbsp;</div>
+        <div id="bot" class="footer">&nbsp;<a href="https://chhopsky.tv">chhopsky.tv</a></div>
     </body>
 </html>
