@@ -16,6 +16,7 @@
         <meta property="og:description" content="click the page. see pretty colors." />
         <meta property="og:image" content="https://downloads.chhopsky.tv/fidget/colors-preview.png" />
         <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script language="JavaScript">
             var cssprefix = getCssValuePrefix()
 
@@ -51,6 +52,13 @@
                                 "80%," + alpha + ")"
             }
 
+            function gethexcolor() {
+                var dom = document.createElement('div');
+
+                dom = null;
+                delete dom;
+            }
+
             function pageclick()
             {
                 var element = document.getElementById("main");
@@ -68,11 +76,43 @@
                     element.style.backgroundColor = randomHSL(hslseed, "0.8");
                 }
                 footer.style.backgroundColor = randomHSL(hslseed, "0.5");
+                let thin = RGBAtoHex(footer.style.backgroundColor);
+                $('#hexcolor').html(thin);
+                console.log(thin)
             }
+
+            function RGBAtoHex(RGBA){
+                var rgb = RGBA.replace(/^rgba?\(|\s+|\)$/g,'').split(',');
+                for(var i in rgb) {
+                console.log(rgb[i]);
+                }
+                let r = rgb[0];
+                let g = rgb[1];
+                let b = rgb[2];
+                let a = "0.7";
+                r2 = 255;
+                g2 = 255;
+                b2 = 255;
+                var r3 = Math.round(((1 - a) * r2) + (a * r));
+                var g3 = Math.round(((1 - a) * g2) + (a * g));
+                var b3 = Math.round(((1 - a) * b2) + (a * b));
+                return rgbToHex(r3, g3, b3)
+                }
+
+                function componentToHex(c) {
+                    var hex = c.toString(16);
+                    return hex.length == 1 ? "0" + hex : hex;
+                }
+
+                function rgbToHex(r, g, b) {
+                    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+                }
+
         </script>
     </head>
     <body>
-        <div id="top" class="header"><input id="gradient" type="checkbox" checked>gradient</div>
+        
+        <div id="top" class="header"><input id="gradient" type="checkbox" checked>gradient <span id="hexcolor">#FFFFFF</span></div>
         <div id="main" class="mainbody" onClick="pageclick()">
             <p>click at all the pretty colors</p>
             <p>and dream of what might have been</p>
