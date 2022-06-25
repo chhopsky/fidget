@@ -1,2 +1,2 @@
 # fidget
-a little web site to occupy your fingers
+web pages to occupy your little fingers
